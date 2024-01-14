@@ -1,0 +1,56 @@
+
+# swagger-ui custom path
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    path: /api-docs
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-boot-secured-rest-api
+    version: 1.0.0
+  profiles:
+    # The commented value for `active` can be replaced with valid Spring profiles to load.
+    # Otherwise, it will be filled in by maven when building the JAR file
+    # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+    active: dev
+
+  # H2 database configuration
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  cache:
+    type: redis
+    host: localhost
+    port: 6379
+    redis:
+      time-to-live: 60000
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:h2:mem:secured-rest-api
+    username: sa
+    password: sa
+
+# Spring Security configuration
+rsa:
+  private-key: classpath:certs/pri.pem
+  public-key: classpath:certs/pub.pem
+security:
+  authentication:
+    jwt:
+      token-validity-in-seconds: 86400 # 24 hours
+      token-validity-in-seconds-for-remember-me: 864000 # 10 days
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+# Properties to be exposed on the /info management endpoint
+info:
+  # Comma separated list of profiles that will trigger the ribbon to show
+  display-ribbon-on-profiles: 'dev'
