@@ -1,0 +1,57 @@
+# swagger-ui custom path
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    path: /api-docs
+server:
+  port: 8080
+spring:
+  application:
+    name: spring-boot-secured-rest-api
+    version: 1.0.0
+  cache:
+    type: redis
+    host: localhost
+    port: 6379
+    redis:
+      time-to-live: 60000
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/sample_application_prod?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: letmein
+
+cache:
+  config:
+    entryTtl: 60 # 60 seconds
+    usersTtl: 60 # 60 seconds
+
+# Spring Security configuration
+rsa:
+  private-key: classpath:certs/pri.pem
+  public-key: classpath:certs/pub.pem
+security:
+  authentication:
+    jwt:
+      token-validity-in-seconds: 86400 # 24 hours
+      token-validity-in-seconds-for-remember-me: 864000 # 10 days
+      # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+      base64-secret: YzBhZDcyNDkxN2EzOGRmOTgxMDY1NDg0OWE2N2VkNWQxNDg3YTliNzc2NmM2OTJhODAyZTY3YjA1YzRjZTMwZjZhYWZhMzFhMzFhMTRiYmIxZGUyYWY3ZjdmOTNlMjRkZWMzZWU4Y2FiNDdmZTRiMDQyMGQ4NDAzOWNiYTc4OTQ=
+
+logging:
+  level:
+    org:
+      springframework:
+        security: info
