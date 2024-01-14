@@ -1,3 +1,5 @@
+base:
+  url: http://localhost:8080
 # swagger-ui custom path
 springdoc:
   show-actuator: true
@@ -32,6 +34,13 @@ spring:
       host: localhost
       port: 6379
       password: letmein
+  mail:
+    from: idetoratojo1@gmail.com
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    protocol: smtp
+    username: dbdfac03d576d7
+    password: 738bfc2d40f819
 
 cache:
   config:

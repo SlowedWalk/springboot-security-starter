@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+  <head>
+    <title>Demo creation </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="icon" th:href="@{|${baseUrl}/favicon.ico|}" />
+  </head>
+  <body>
+    <p th:text="${'Dear ' + user.username}"></p>
+    <p>Your Demo account has been created, please click on the URL below to access it:</p>
+    <p>
+      <a th:with="url=(@{|${baseUrl}/api/v1/auth/activate?key=${user.activationKey}|})" th:href="${url}" th:text="${url}">Login link</a>
+    </p>
+    <p>
+      <span>Regards, </span>
+      <br />
+      <br />
+      <em>Hidetora Team.</em>
+    </p>
+  </body>
+</html>

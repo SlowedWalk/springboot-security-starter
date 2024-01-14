@@ -8,6 +8,7 @@ import tech.hidetora.securityStarter.entity.AppUser;
 import tech.hidetora.securityStarter.utils.Constants;
 
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDTO {
+public class UserDTO implements Serializable {
     private String username;
     @Pattern(regexp = Constants.LOGIN_REGEX)
     private String login;

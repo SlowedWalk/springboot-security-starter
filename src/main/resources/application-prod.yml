@@ -32,6 +32,13 @@ spring:
       host: localhost
       port: 6379
       password: letmein
+  mail:
+    from: idetoratojo1@gmail.com
+    host: # your email provider host
+    port: # your email provider port
+    protocol: smtp
+    username: # your email provider account username
+    password: # your email provider account passowrd
 
 cache:
   config:

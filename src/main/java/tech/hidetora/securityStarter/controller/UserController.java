@@ -2,6 +2,7 @@ package tech.hidetora.securityStarter.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,16 +25,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-//    @Cacheable(value = "users", key = "#id")
-    public ResponseEntity<APIResponse> getUserById(@PathVariable long id) {
+    @Cacheable(value = "users", key = "#id")
+    public APIResponse getUserById(@PathVariable long id) {
         UserDTO userById = userService.getUserById(id);
-        return ResponseEntity.ok(APIResponse.builder()
+        return APIResponse.builder()
                 .status(HttpStatus.OK)
                 .message("User fetched successfully")
                 .data(userById)
                 .statusCode(HttpStatus.OK.value())
                 .timestamp(Instant.now().toString())
                 .success(true)
-                .build());
+                .build();
     }
 }

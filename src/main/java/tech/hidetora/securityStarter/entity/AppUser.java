@@ -44,6 +44,10 @@ public class AppUser extends AbstractAuditingEntity<Long> {
 //    @Column(length = 50, unique = true, nullable = true)
 //    private String login;
 
+//    @Size(min = 2, max = 10)
+//    @Column(name = "lang_key", length = 10)
+//    private String langKey;
+
     @JsonIgnore
     @NotNull
     @Size(min = 60, max = 60)
@@ -62,6 +66,11 @@ public class AppUser extends AbstractAuditingEntity<Long> {
     @Column(name = "activation_key", length = 20)
     @JsonIgnore
     private String activationKey;
+
+    @Size(max = 20)
+    @Column(name = "reset_key", length = 20)
+    @JsonIgnore
+    private String resetKey;
 
     @JsonIgnore
     @ManyToMany

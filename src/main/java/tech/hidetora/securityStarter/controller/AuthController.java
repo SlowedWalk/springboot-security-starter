@@ -62,7 +62,7 @@ public class AuthController {
      * @param key the activation key.
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be activated.
      */
-    @PostMapping(ACTIVATE)
+    @GetMapping(ACTIVATE)
     public ResponseEntity<APIResponse> activateAccount(@RequestParam(value = "key") String key) {
         Optional<AppUser> user = authService.activateUser(key);
         if (user.isEmpty()) {

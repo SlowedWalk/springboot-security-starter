@@ -23,6 +23,7 @@ import tech.hidetora.securityStarter.exception.UsernameAlreadyUsedException;
 import tech.hidetora.securityStarter.repository.AuthRepository;
 import tech.hidetora.securityStarter.repository.UserRepository;
 import tech.hidetora.securityStarter.service.AuthService;
+import tech.hidetora.securityStarter.service.MailService;
 import tech.hidetora.securityStarter.utils.AuthoritiesConstants;
 import tech.hidetora.securityStarter.utils.JwtTokenUtil;
 import tech.hidetora.securityStarter.utils.RandomUtil;
@@ -50,6 +51,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenUtil jwtTokenUtil;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final MailService mailService;
 
     @Value("${security.authentication.jwt.token-validity-in-seconds:0}")
     private long tokenValidityInSeconds;
@@ -133,9 +135,11 @@ public class AuthServiceImpl implements AuthService {
                 // new user is not active
                 .activated(false)
                 .activationKey(RandomUtil.generateActivationKey())
+                .resetKey(RandomUtil.generateResetKey())
                 .authorities(authorities)
                 .build();
         userRepository.save(newUser);
+        mailService.sendCreationEmail(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return UserDTO.toDTO(newUser);

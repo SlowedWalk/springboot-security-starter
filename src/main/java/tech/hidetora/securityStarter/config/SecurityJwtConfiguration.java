@@ -23,7 +23,6 @@ import static tech.hidetora.securityStarter.utils.SecurityUtils.AUTHORITIES_KEY;
 public class SecurityJwtConfiguration {
     private final RsaKeyProperties rsaKeyConfig;
 
-
     @Bean
     public JwtEncoder jwtEncoder(){
         JWK jwk=new RSAKey.Builder(rsaKeyConfig.publicKey()).privateKey(rsaKeyConfig.privateKey()).build();
